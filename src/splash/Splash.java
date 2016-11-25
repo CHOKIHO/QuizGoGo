@@ -3,6 +3,8 @@ package splash;
 public class Splash {
 
 	static public void displaySplash() {
+		System.out.println();
+		System.out.println();
 		System.out.println("************************************************************");
 		System.out.println();
 		System.out.println("                     퀴즈 고고~~                            ");
@@ -25,12 +27,14 @@ public class Splash {
 			space += "    ";
 		}
 		 
-		  System.out.print(space +"▼");
-		  System.out.println();
-		  System.out.println("┏━┳━┳━┳━┳━┳━┳━┳━┳━┳━┳━┳━┳━┳━┳━┓");
-		  System.out.println("┃①┃②┃③┃④┃⑤┃⑥┃⑦┃⑧┃⑨┃⑩┃⑪┃⑫┃⑬┃⑭┃⑮┃");
-		  System.out.println("┗━┻━┻━┻━┻━┻━┻━┻━┻━┻━┻━┻━┻━┻━┻━┛");
-		  System.out.println();
+		if (stage != 0) {
+			System.out.print(space + "▼");
+		}
+		System.out.println();
+		System.out.println("┏━┳━┳━┳━┳━┳━┳━┳━┳━┳━┳━┳━┳━┳━┳━┓");
+		System.out.println("┃①┃②┃③┃④┃⑤┃⑥┃⑦┃⑧┃⑨┃⑩┃⑪┃⑫┃⑬┃⑭┃⑮┃");
+		System.out.println("┗━┻━┻━┻━┻━┻━┻━┻━┻━┻━┻━┻━┻━┻━┻━┛");
+		System.out.println();
 	}
 	
 	static public void clear() {

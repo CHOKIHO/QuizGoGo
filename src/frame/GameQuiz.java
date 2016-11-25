@@ -8,8 +8,10 @@ public class GameQuiz {
 		this.quiz = quiz;
 	}
 	
-	public void makeQuiz() {
-		quiz.make();
+	public int makeQuiz() {
+		return quiz.make();
 
 	}
+	
+	
 }

@@ -10,55 +10,119 @@ import splash.Splash;
 
 public class QuizMain {
 	
-	static private int stagePosition= 0;
+	static private int stagePosition = 0;
+	static private int recordTime = 0;
+	static private int stage = 0;
+	static final int MAX_QUIZ_COUNT = 3;
+	
+	
 
 	public static void main(String[] args) throws InterruptedException {
 		
 		Splash.displaySplash();
-		
-		sliceTime();
 
-		
+		QuizMain qm = new QuizMain();
 		GameQuiz quiz = new GameQuiz();
 		
-		//가위바위보 문제
-		quiz.setQuiz(new RspQuiz());
-		quiz.makeQuiz();
-		Splash.clear();
-		Splash.displaySplash();
-	
-		sliceTime();
-		
-		//단어 빨리치기 게임
-		quiz.setQuiz(new WordQuiz());
-		quiz.makeQuiz();
-		Splash.clear();
-		Splash.displaySplash();		
-		sliceTime();
-		
-		//단어 맞추기 게임
-		quiz.setQuiz(new WordPerfect());
-		quiz.makeQuiz();
-		Splash.clear();
-		Splash.displaySplash();		
-		sliceTime();
-		
+		while (stagePosition < 15) {
+			
+			Splash.displayStage(stagePosition);
+			
+			//주사위던지기
+			
+			int diceCount = qm.throwDice();
+			
+			stagePosition += diceCount;
+			if (stagePosition > 15 ) stagePosition = 15;
+			//Splash.clear();
+			
+			Splash.displayStage(stagePosition);
+
+			
+			//랜덤 퀴즈 만들기
+			int quizNo = new Random().nextInt(MAX_QUIZ_COUNT)+1;
+			
+			switch (quizNo) {
+			case 1:
+				//단어 빨리치기 게임
+				quiz.setQuiz(new WordQuiz());
+				break;
+			case 2:
+				//가위바위보 문제
+				quiz.setQuiz(new RspQuiz());
+				break;
+			case 3:
+				//단어 맞추기 게임
+				quiz.setQuiz(new WordPerfect());
+				break;
+
+			default:
+				break;
+			}
+			
+			
+			//퀴즈 실패
+			if (quiz.makeQuiz()==0) {
+				
+				// position -1만큼 옮기기
+				if (stagePosition > 0) {
+					stagePosition--;
+					System.out.println("퀴즈 미션에 실패하여 -1 만큼 되돌아갑니다.");
+					Thread.sleep(1000);
+					
+				}
+				
+			}
+			
+			Splash.clear();
+			Splash.displaySplash();		
+			
+			
+			//모든 퀴즈 완료
+			if (stagePosition == 15) {
+				//기록 측정
+				System.out.println("모든 단계를 통과했습니다.");
+				break;
+			}
+			 
+		}
 	}
 
-	static void sliceTime() throws InterruptedException {
-		Thread.sleep(1000);
-		System.out.println("주사위를 던집니다.");
-		for (int i=0;i<30;i++) {
-			Thread.sleep(50);
-			System.out.print("-");
-		}
-		System.out.print("> ");
-		Random rnd = new Random();
-		int result = rnd.nextInt(3)+1;
-		stagePosition += result;
-		System.out.print(result);
-		System.out.println();
+
+	public int throwDice() throws InterruptedException {
 		
-		Splash.displayStage(stagePosition);
+		System.out.println();
+		String msg1 ="주사위를 던집니다.";
+		for(int i=0;i<msg1.length();i++) {
+			Thread.sleep(100);
+			System.out.print(msg1.charAt(i));
+		}
+				
+		System.out.println();
+		System.out.println();
+			
+		for (int i = 0; i < 20; i++) {
+			Thread.sleep(100);
+
+			if (i % 2 == 0) {
+				System.out.print("-●");
+			} else {
+				System.out.print("-○");
+			}
+		}
+		
+		Random rnd = new Random();
+		int result = rnd.nextInt(3)+1;		
+		Thread.sleep(100);
+		System.out.print("  [" + result + "]");
+		System.out.println();
+		System.out.println();
+		System.out.println(result + "칸 전진합니다.");
+		System.out.println();
+		Thread.sleep(100);
+		return result;
+		
+
 	}
+	
 }

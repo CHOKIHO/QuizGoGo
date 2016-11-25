@@ -14,7 +14,7 @@ public class WordQuiz implements Quiz {
 	//String[] data = { "apple", "pineapple", "strawberry", "grape", "pear" };
 	
 	@Override
-	public void make() {
+	public int make() {
 		System.out.println("------워드퀴즈------");
 		
 		for (int i=0;i<data.length;i++) {
@@ -47,7 +47,7 @@ public class WordQuiz implements Quiz {
 			}
 		}
 		
-		//sc.close();
+		return 1;
 	}
 
 }

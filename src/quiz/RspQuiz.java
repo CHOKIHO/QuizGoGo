@@ -8,7 +8,7 @@ import frame.Quiz;
 public class RspQuiz implements Quiz {
 
 	@Override
-	public void make() {
+	public int make() {
 		
 		Scanner sc = new Scanner(System.in);
 		int win=0, lose=0, draw=0;
@@ -43,10 +43,14 @@ public class RspQuiz implements Quiz {
 			
 			System.out.println(win + "승 " + draw + "무 " + lose + "패");
 
-			if (win == 3) {
+			if (win == 3 || lose ==3) {
 				break;
 			}
 		}
-		System.out.println("미션 클리어");
+		if (win==3) {
+			return 1;
+		}else {
+			return 0;
+		}
 	}
 }

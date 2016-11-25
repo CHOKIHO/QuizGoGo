@@ -8,7 +8,7 @@ import frame.Quiz;
 public class WordPerfect implements Quiz {
 
 	@Override
-	public void make() {
+	public int make() {
 		
 		String[] strArr = { "ELEPHANT", "SQUARREL", "RAINBOW", "INCREPAS" };
 		Random random = new Random();
@@ -27,12 +27,6 @@ public class WordPerfect implements Quiz {
 			System.out.print("정답은? : ");
 			answer = sc.next();
 			
-//			if(sc.hasNextLine()){
-//				answer=sc.next();
-//			}
-			
-			
-
 			if (answer.equalsIgnoreCase(strArr[select])) {
 				System.out.println(answer + "는 정답입니다.");
 				break;
@@ -41,7 +35,7 @@ public class WordPerfect implements Quiz {
 			}
 
 		}
-		//sc.close();
+		return 1;
 	}
 
 }
