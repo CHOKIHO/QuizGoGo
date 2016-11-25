@@ -1,8 +1,10 @@
 package main;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import frame.GameQuiz;
+import info.QuizInfo;
 import quiz.RspQuiz;
 import quiz.WordPerfect;
 import quiz.WordQuiz;
@@ -15,6 +17,12 @@ public class QuizMain {
 	static private int stage = 0;
 	static final int MAX_QUIZ_COUNT = 3;
 	
+	static final int MAX_QUIZ_NUMBER =15;
+	
+	static ArrayList<QuizInfo> arrQuiz = new ArrayList<>();
+	int[] lotto;
+	
+	
 	
 
 	public static void main(String[] args) throws InterruptedException {
@@ -23,6 +31,13 @@ public class QuizMain {
 
 		QuizMain qm = new QuizMain();
 		GameQuiz quiz = new GameQuiz();
+		
+		
+		
+		//ArrayList 퀴즈만들기
+		qm.assignQuiz();
+		
+		
 		
 		while (stagePosition < 15) {
 			
@@ -39,7 +54,7 @@ public class QuizMain {
 			Splash.displayStage(stagePosition);
 
 			
-			//랜덤 퀴즈 만들기
+/*			//랜덤 퀴즈 만들기
 			int quizNo = new Random().nextInt(MAX_QUIZ_COUNT)+1;
 			
 			switch (quizNo) {
@@ -58,6 +73,34 @@ public class QuizMain {
 
 			default:
 				break;
+			}*/
+			
+			// ArrayList에서 만든 퀴즈 출제하기
+			switch (arrQuiz.get(stagePosition-1).getQuizType()) {
+				case 0:
+				case 1:
+				case 3:
+				case 4:
+				case 5:
+					// 단어 빨리치기 게임
+					quiz.setQuiz(new WordQuiz());
+					break;
+				case 6:
+				case 7:
+				case 8:
+				case 9:
+				case 10:
+					// 가위바위보 문제
+					quiz.setQuiz(new RspQuiz());
+					break;
+				case 11:
+				case 12:
+				case 13:
+				case 14:
+					// 단어 맞추기 게임
+					quiz.setQuiz(new WordPerfect());
+					break;
+
 			}
 			
 			
@@ -124,5 +167,49 @@ public class QuizMain {
 		
 
 	}
+	
+	
+	//퀴즈 문제 및 난이도 배정
+	
+	private void assignQuiz() {
+		
+		//로또 중복제거
+		lottoNumber();
+		
+
+		for (int i=0; i<MAX_QUIZ_NUMBER; i++) {
+			
+			//퀴즈번호, 퀴즈타입, 퀴즈제한시간, 퀴즈난이도
+			QuizInfo qinfo = new QuizInfo(i, lotto[i],0,0);
+			arrQuiz.add(qinfo);
+			
+		}
+		
+		System.out.println(arrQuiz);
+
+	}
+	
+	public void lottoNumber() {
+		
+		lotto = new int[MAX_QUIZ_NUMBER];
+
+		outer : for (int i = 0; i < MAX_QUIZ_NUMBER;) {
+	
+			lotto[i] = new Random().nextInt(MAX_QUIZ_NUMBER);
+			
+			for (int j=0;j<i;j++) {
+				if (lotto[i] == lotto[j]) {
+					continue outer;  //outer의 증감식으로 이동
+					//break;
+				}
+			}
+			
+			//System.out.printf("%d ", lotto[i]);
+			i++;
+		}
+
+	}
+	
+	
 	
 }
