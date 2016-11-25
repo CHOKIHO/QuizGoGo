@@ -3,7 +3,7 @@ package main;
 import java.util.ArrayList;
 import java.util.Random;
 
-import frame.GameQuiz;
+import frame.QuizBank;
 import info.QuizInfo;
 import quiz.RspQuiz;
 import quiz.WordPerfect;
@@ -28,9 +28,12 @@ public class QuizMain {
 	public static void main(String[] args) throws InterruptedException {
 		
 		Splash.displaySplash(1);
+		
+		//랭킹 정보 불러오기
+		//아이디 입력받기
 
 		QuizMain qm = new QuizMain();
-		GameQuiz quiz = new GameQuiz();
+		QuizBank quiz = new QuizBank();
 		
 		
 		
@@ -125,7 +128,7 @@ public class QuizMain {
 			
 			//모든 퀴즈 완료
 			if (stagePosition == MAX_QUIZ_NUMBER) {
-				//기록 측정
+				//기록 측정 및 저장
 				System.out.println("모든 단계를 통과했습니다.");
 				break;
 			}
@@ -166,13 +169,10 @@ public class QuizMain {
 		System.out.println();
 		Thread.sleep(100);
 		return result;
-		
 
 	}
 	
-	
 	//퀴즈 문제 및 난이도 배정
-	
 	private void assignQuiz() {
 		
 		//로또 중복제거

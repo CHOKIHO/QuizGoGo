@@ -1,6 +1,6 @@
 package frame;
 
-public class GameQuiz {
+public class QuizBank {
 
 	Quiz quiz;
 	
