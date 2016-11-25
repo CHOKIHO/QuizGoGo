@@ -27,7 +27,7 @@ public class QuizMain {
 
 	public static void main(String[] args) throws InterruptedException {
 		
-		Splash.displaySplash();
+		Splash.displaySplash(1);
 
 		QuizMain qm = new QuizMain();
 		GameQuiz quiz = new GameQuiz();
@@ -39,7 +39,7 @@ public class QuizMain {
 		
 		
 		
-		while (stagePosition < 15) {
+		while (stagePosition < MAX_QUIZ_NUMBER) {
 			
 			Splash.displayStage(stagePosition);
 			
@@ -48,7 +48,7 @@ public class QuizMain {
 			int diceCount = qm.throwDice();
 			
 			stagePosition += diceCount;
-			if (stagePosition > 15 ) stagePosition = 15;
+			if (stagePosition > MAX_QUIZ_NUMBER ) stagePosition = MAX_QUIZ_NUMBER;
 			//Splash.clear();
 			
 			Splash.displayStage(stagePosition);
@@ -103,6 +103,8 @@ public class QuizMain {
 
 			}
 			
+			//퀴즈 story
+			quiz.displayStory();
 			
 			//퀴즈 실패
 			if (quiz.makeQuiz()==0) {
@@ -118,11 +120,11 @@ public class QuizMain {
 			}
 			
 			Splash.clear();
-			Splash.displaySplash();		
+			Splash.displaySplash(stagePosition);		
 			
 			
 			//모든 퀴즈 완료
-			if (stagePosition == 15) {
+			if (stagePosition == MAX_QUIZ_NUMBER) {
 				//기록 측정
 				System.out.println("모든 단계를 통과했습니다.");
 				break;
@@ -175,36 +177,28 @@ public class QuizMain {
 		
 		//로또 중복제거
 		lottoNumber();
-		
 
 		for (int i=0; i<MAX_QUIZ_NUMBER; i++) {
 			
 			//퀴즈번호, 퀴즈타입, 퀴즈제한시간, 퀴즈난이도
 			QuizInfo qinfo = new QuizInfo(i, lotto[i],0,0);
 			arrQuiz.add(qinfo);
-			
 		}
 		
 		System.out.println(arrQuiz);
-
 	}
 	
-	public void lottoNumber() {
+	private void lottoNumber() {
 		
 		lotto = new int[MAX_QUIZ_NUMBER];
 
 		outer : for (int i = 0; i < MAX_QUIZ_NUMBER;) {
-	
 			lotto[i] = new Random().nextInt(MAX_QUIZ_NUMBER);
-			
 			for (int j=0;j<i;j++) {
 				if (lotto[i] == lotto[j]) {
 					continue outer;  //outer의 증감식으로 이동
-					//break;
 				}
 			}
-			
-			//System.out.printf("%d ", lotto[i]);
 			i++;
 		}
 

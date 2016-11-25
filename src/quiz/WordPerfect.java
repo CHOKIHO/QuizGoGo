@@ -9,6 +9,9 @@ public class WordPerfect implements Quiz {
 
 	@Override
 	public int make() {
+		System.out.println();
+		System.out.println("-------------------[단어 스펠링 맞추기]-------------------");
+		System.out.println();
 		
 		String[] strArr = { "ELEPHANT", "SQUARREL", "RAINBOW", "INCREPAS" };
 		Random random = new Random();
@@ -36,6 +39,14 @@ public class WordPerfect implements Quiz {
 
 		}
 		return 1;
+	}
+
+	@Override
+	public String[] story() {
+		String[] msg = {"당신은 깜깜한 동굴속에 있습니다.",
+				        "제시한 단어의 철자를 정확하게 맞혀주세요",
+		                "......................."};
+		return msg;
 	}
 
 }

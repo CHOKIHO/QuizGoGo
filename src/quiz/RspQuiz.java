@@ -6,9 +6,14 @@ import java.util.Scanner;
 import frame.Quiz;
 
 public class RspQuiz implements Quiz {
+	private String title;
 
 	@Override
 	public int make() {
+		
+		System.out.println();
+		System.out.println("-------------------------[가위바위보]-------------------------");
+		System.out.println();
 		
 		Scanner sc = new Scanner(System.in);
 		int win=0, lose=0, draw=0;
@@ -52,5 +57,14 @@ public class RspQuiz implements Quiz {
 		}else {
 			return 0;
 		}
+	}
+	
+	@Override
+	public String[] story() {
+		String[] msg = {"당신은 무인도에 갇혔습니다.",
+				        "가위바위보 신과 대결을 시작합니다.",
+						"3번을 먼저 이겨야 미션을 클리어 할 수 있습니다."};
+		return msg;
+		
 	}
 }

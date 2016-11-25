@@ -2,13 +2,13 @@ package splash;
 
 public class Splash {
 
-	static public void displaySplash() {
+	static public void displaySplash(int stage) {
 		System.out.println();
 		System.out.println();
 		System.out.println("************************************************************");
-		System.out.println();
-		System.out.println("                     퀴즈 고고~~                            ");
-		System.out.println();
+		System.out.println("*                                                          *");
+		System.out.println("*                퀴즈 고고~~      (" + stage + ") 단계                 *");
+		System.out.println("*                                                          *");
 		System.out.println("************************************************************");
 		
 		System.out.println();
