@@ -19,6 +19,7 @@ public class Quest{
 	public Quest() {
 		// TODO Auto-generated constructor stub
 	}
+	
 	public void showExample(){
 		
 		System.out.printf("%s\n",ex);
@@ -26,6 +27,7 @@ public class Quest{
 		System.out.printf("초성힌트 : %s\n",view);
 		System.out.println("━━━━━━━━━━━━━");
 	}
+	
 	public String getAnswer() {
 		return answer;
 	}

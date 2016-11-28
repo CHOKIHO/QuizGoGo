@@ -9,7 +9,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
-
 import info.PlayerInfo;
 
 public class PlayerRank {
@@ -34,7 +33,9 @@ public class PlayerRank {
 		//이전기록 검색
 		String path = "rank.dat";
 		
-		File file = new File(path);
+		file = new File(path);
+		
+		loadRanking();
 	}
 	
 	public void loadRanking() {
@@ -48,6 +49,8 @@ public class PlayerRank {
 
 				try {
 					rank = (ArrayList<PlayerInfo>) ois.readObject();
+					if (rank == null)
+						rank = new ArrayList<PlayerInfo>();
 
 				} catch (ClassNotFoundException e) {
 					e.printStackTrace();
@@ -58,13 +61,14 @@ public class PlayerRank {
 				if (fis != null)
 					fis.close();
 
-				System.out.println("랭킹정보 파일 로드 성공");
+				//System.out.println("랭킹정보 파일 로드 성공");
+			
 
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		} else {
-			System.out.println("랭킹정보 파일 없음");
+			//System.out.println("랭킹정보 파일 없음");
 		}
 	}
 
@@ -73,10 +77,14 @@ public class PlayerRank {
 	 *  Top5 랭킹 보여주기
 	 */  
 	public void showRanking() {
+		
+		System.out.println("순위        아이디          시간");
+		System.out.println("━━━━━━━━━━━━━━━━━");
 		for (int i = 0; i < rank.size(); i++) {
-			System.out.println((i + 1) + "." + rank.get(i));
+			System.out.println(" "+ (i + 1) + "." + rank.get(i));
 			if (rank.size() ==5) break; 
 		}
+		System.out.println("━━━━━━━━━━━━━━━━━");
 	}
 	
 

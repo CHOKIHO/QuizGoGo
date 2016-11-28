@@ -38,7 +38,7 @@ public class PlayerInfo implements Serializable {
 
 	@Override
 	public String toString() {		
-		return "아이디 : " + id + "시간 : " + recordTime;
+		return "         " + id + "             " + recordTime;
 	}
 	
 	
