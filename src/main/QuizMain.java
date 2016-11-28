@@ -2,12 +2,17 @@ package main;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
 import frame.QuizBank;
+import info.PlayerInfo;
 import info.QuizInfo;
+import player.PlayerRank;
+import quiz.ChosungQuiz;
+import quiz.HangMan;
+import quiz.IndianPoker;
 import quiz.RspQuiz;
 import quiz.WordPerfect;
-import quiz.WordQuiz;
 import splash.Splash;
 
 public class QuizMain {
@@ -23,31 +28,30 @@ public class QuizMain {
 	int[] lotto;
 	
 	
-	
-
 	public static void main(String[] args) throws InterruptedException {
 		
 		Splash.displaySplash(1);
 		
 		//랭킹 정보 불러오기
-		//아이디 입력받기
 
+		//아이디 입력받기
 		QuizMain qm = new QuizMain();
 		QuizBank quiz = new QuizBank();
-		
-		
 		
 		//ArrayList 퀴즈만들기
 		qm.assignQuiz();
 		
 		
-		
 		while (stagePosition < MAX_QUIZ_NUMBER) {
+			
+			stage++;
 			
 			Splash.displayStage(stagePosition);
 			
-			//주사위던지기
+			//랭킹표시
 			
+			
+			//주사위던지기
 			int diceCount = qm.throwDice();
 			
 			stagePosition += diceCount;
@@ -55,56 +59,60 @@ public class QuizMain {
 			//Splash.clear();
 			
 			Splash.displayStage(stagePosition);
-
 			
-/*			//랜덤 퀴즈 만들기
-			int quizNo = new Random().nextInt(MAX_QUIZ_COUNT)+1;
-			
-			switch (quizNo) {
-			case 1:
-				//단어 빨리치기 게임
-				quiz.setQuiz(new WordQuiz());
-				break;
-			case 2:
-				//가위바위보 문제
-				quiz.setQuiz(new RspQuiz());
-				break;
-			case 3:
-				//단어 맞추기 게임
-				quiz.setQuiz(new WordPerfect());
-				break;
-
-			default:
-				break;
-			}*/
-			
+		
 			// ArrayList에서 만든 퀴즈 출제하기
 			switch (arrQuiz.get(stagePosition-1).getQuizType()) {
 				case 0:
 				case 1:
-				case 3:
+				case 2:
+				case 3: 
 				case 4:
 				case 5:
-					// 단어 빨리치기 게임
-					quiz.setQuiz(new WordQuiz());
+					//초성퀴즈
+					quiz.setQuiz(new ChosungQuiz());
 					break;
 				case 6:
+					//인디언포커
+					quiz.setQuiz(new IndianPoker());
+					break;
 				case 7:
+					//초성퀴즈
+					quiz.setQuiz(new ChosungQuiz());
+					break;
+
 				case 8:
+					// 단어 빨리치기 게임
+					quiz.setQuiz(new HangMan());
+					break;
+					
 				case 9:
+					//초성퀴즈
+					quiz.setQuiz(new ChosungQuiz());
+					break;
+
 				case 10:
 					// 가위바위보 문제
 					quiz.setQuiz(new RspQuiz());
 					break;
 				case 11:
+					// 행맨
+					quiz.setQuiz(new HangMan());
+					break;
+
 				case 12:
 				case 13:
+					//초성퀴즈
+					quiz.setQuiz(new ChosungQuiz());
+					break;
+
 				case 14:
 					// 단어 맞추기 게임
 					quiz.setQuiz(new WordPerfect());
 					break;
 
 			}
+
 			
 			//퀴즈 story
 			quiz.displayStory();
@@ -117,9 +125,7 @@ public class QuizMain {
 					stagePosition--;
 					System.out.println("퀴즈 미션에 실패하여 -1 만큼 되돌아갑니다.");
 					Thread.sleep(1000);
-					
 				}
-				
 			}
 			
 			Splash.clear();
@@ -128,7 +134,32 @@ public class QuizMain {
 			
 			//모든 퀴즈 완료
 			if (stagePosition == MAX_QUIZ_NUMBER) {
-				//기록 측정 및 저장
+				
+				
+/*				//기록 측정 및 저장
+				id = new Scanner(System.in).next();
+				recordTime = 11;
+				
+				pi = new PlayerInfo(id, stage, recordTime);
+				PlayerRank.getInstance().insert(pi);
+
+*/              
+				String id = "aaaa";
+				recordTime = 11;
+				
+				
+				if (PlayerRank.getInstance().checkRanking(recordTime)) {
+					
+					//랭킹 추가
+					PlayerInfo pi = new PlayerInfo(id, stage, recordTime);
+					PlayerRank.getInstance().insert(pi);
+					//파일 저장
+					PlayerRank.getInstance().saveRanking();
+					
+				}
+				
+				
+				
 				System.out.println("모든 단계를 통과했습니다.");
 				break;
 			}

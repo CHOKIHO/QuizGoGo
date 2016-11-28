@@ -1,10 +1,21 @@
 package info;
 
-public class UserInfo {
+import java.io.Serializable;
+
+public class PlayerInfo implements Serializable {
 	
 	private String id;
 	private int stage;
 	private int recordTime;
+	
+	
+	
+	public PlayerInfo(String id, int stage, int recordTime) {
+		super();
+		this.id = id;
+		this.stage = stage;
+		this.recordTime = recordTime;
+	}
 	
 	public String getId() {
 		return id;
@@ -23,6 +34,11 @@ public class UserInfo {
 	}
 	public void setRecordTime(int recordTime) {
 		this.recordTime = recordTime;
+	}
+
+	@Override
+	public String toString() {		
+		return "아이디 : " + id + "시간 : " + recordTime;
 	}
 	
 	
