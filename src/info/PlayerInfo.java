@@ -37,8 +37,21 @@ public class PlayerInfo implements Serializable {
 	}
 
 	@Override
-	public String toString() {		
-		return "         " + id + "             " + recordTime;
+	public String toString() {	
+		
+		String record = Integer.toString(recordTime);
+		
+		return space(10,id) +  id + space(10,id) + space(4,record) + recordTime;
+	}
+	
+	private String space(int num, String str) {
+		
+		String spc="";
+		for (int i=0;i<(10-str.length()/2);i++)	{
+			spc += " ";
+		}
+		return spc;
+
 	}
 	
 	

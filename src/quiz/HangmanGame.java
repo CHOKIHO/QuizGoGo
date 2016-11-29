@@ -20,6 +20,7 @@ public class HangmanGame {
 		for(int i=0; i<word.length(); i++){
 			System.out.print("□ ");
 		}
+		System.out.println();
 	}//setBlank
 
 	public void setWord(ArrayList<String> arr){
@@ -43,6 +44,7 @@ public class HangmanGame {
 			}
 			
 		}
+		System.out.println();
 
 	}//setWord
 

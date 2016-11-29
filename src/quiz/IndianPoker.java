@@ -10,75 +10,102 @@ public class IndianPoker implements Quiz{
 
 	@Override
 	public int make() {
+		
+		System.out.println();
+		System.out.println("------------------[인디언 포커]------------------");
+		System.out.println();
+		
+		int round = 0;
 		int life = 3;
 		int wincount = 0;
+		
 		Scanner sc = new Scanner(System.in);
-		ArrayList<Integer> arr = new ArrayList<>();
-		ArrayList<Integer> arr2 = new ArrayList<>();
-		for(int i =1; i <= 12; i++){
-			arr.add(i);//내카드
-			arr2.add(i);//상대카드
+		
+		ArrayList<Integer> arr = new ArrayList<>();		//user(내카드)
+		ArrayList<Integer> arr2 = new ArrayList<>();	//com(상대카드)
+		for(int i = 1; i <= 12; i++){
+			arr.add(i);		
+			arr2.add(i);	
 		}
 
-		while(true){
-			int com = new Random().nextInt((arr2.size()-1));
-			int user = new Random().nextInt((arr.size()-1));
-			System.out.println("com 카드 : "+arr.get(com));
-			System.out.println("내카드 : "+"?");
-			System.out.println("1.배팅 : ");
-			System.out.println("2.다이 : ");
-			System.out.print(">>");
-			int list = sc.nextInt();
-			switch(list){
+		outer : while(true){
+			
+			round++;
+			
+			int user = new Random().nextInt(arr.size());
+			int com = new Random().nextInt(arr2.size());
+			
+			System.out.println("\n       (라운드 " + round + ")       ");
+			System.out.println("com 카드 : " + arr2.get(com));
+			System.out.println("내 카드 : ?");
+			
+			System.out.println("---------------------");
+			System.out.println("1.배팅  |  2.다이");
+			System.out.print(">> ");
+			
+			int select = sc.nextInt();
+			
+			switch( select ){
+			
 			case 1: 
-				if(arr2.get(com) >= arr2.get(user)){
-					System.out.println("내카드 : "+ arr.get(user));
+				
+				System.out.println("★☆  내카드 : "+ arr.get(user) + " ★☆");
+				
+				if(arr2.get(com) >= arr.get(user)){
+					//컴이 나보다 크거나 같은 경우 목숨 -1
 					life--;
-					System.out.println("YOU LOSE    "+"목숨 : "+life);
-					arr.remove(user);
-					arr2.remove(com);
-
-				}
-				if(arr2.get(com) < arr2.get(user)){
-					System.out.println("내카드 : "+arr.get(user));
-					System.out.println("NAME WIN    "+"목숨 : "+life);
+					System.out.println("LOSE");
+				}else{
+					//컴이 나보다 작은 같은 경우 win+1
 					wincount++;
-					arr.remove(user);
-					arr2.remove(com);
+					System.out.println("WIN ");
 				}
+				
+				arr.remove(user);
+				arr2.remove(com);
 				break;
+				
 			case 2:
-				if(arr2.get(com) >= arr2.get(user)){
-					System.out.println("내카드 : " +arr.get(user));
-					System.out.println("굳굳   "+"목숨 : "+life);
-					arr.remove(user);
-					arr2.remove(com);
+				
+				System.out.println("★☆ 내카드 : "+ arr.get(user) + " ★☆");
+				
+				if(arr2.get(com) >= arr.get(user)){
+					//컴이 나보다 크거나 같은 경우 목숨 유지
+					System.out.println("휴=3 다행이다.");
+				}else{
+					//컴이 나보다 작은 같은 경우 life-1
+					life--;
+					System.out.println("실수하셨습니다.");
 				}
-				if(arr2.get(com) < arr2.get(user)){
-					System.out.println("내카드 : "+arr.get(user));
-					--life;
-					System.out.println("실수OTL    "+"목숨 : "+life);
-					arr.remove(user);
-					arr2.remove(com);
-				}
+				
+				arr.remove(user);
+				arr2.remove(com);
 				break;
+				
+				default :
+					System.out.println("다시 입력하세요.");
+					continue outer;
 			}//switch
-			if(life ==0){
-				System.out.println("NAME LOSE");
-				break;
+			
+			System.out.println("목숨: " + life + " 이긴 횟수: " + wincount+"/3");
+			
+			if(life == 0){
+				System.out.println("실패");
+				return 0;
 			}//if
-			if(wincount ==5){
-				System.out.println("GAME WIN");
-				System.out.println("주사위 RoLL");
-				break;
+			
+			if(wincount == 3){
+				System.out.println("성공");
+				return 1;
 			}
 		}//while
-		return 1;
 	}
 
 	@Override
 	public String[] story() {
-		String[] msg = { "당신은 강원랜드에 놀러왔습니다.", "인디언포커를 시작합니다.", "3번을 먼저 이겨야 미션을 클리어 할 수 있습니다." };
+		String[] msg = { "당신은 강원랜드에 놀러왔습니다.", 
+						"인디언포커를 시작합니다.",
+						"3번을 이겨야 미션을 클리어 할 수 있습니다." };
 		return msg;
 
 	}

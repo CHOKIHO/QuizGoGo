@@ -10,8 +10,8 @@ import frame.Quiz;
 public class WordQuiz implements Quiz {
 	
 	ArrayList<String> arr = new ArrayList<>();
-	String[] data = { "apple" };
-	//String[] data = { "apple", "pineapple", "strawberry", "grape", "pear" };
+	//String[] data = { "apple" };
+	String[] data = { "apple", "grape", "pear" };
 	
 	@Override
 	public int make() {

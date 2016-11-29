@@ -69,6 +69,9 @@ public class PlayerRank {
 			}
 		} else {
 			//System.out.println("랭킹정보 파일 없음");
+			if (rank == null)
+				rank = new ArrayList<PlayerInfo>();
+			
 		}
 	}
 
@@ -78,13 +81,17 @@ public class PlayerRank {
 	 */  
 	public void showRanking() {
 		
-		System.out.println("순위        아이디          시간");
-		System.out.println("━━━━━━━━━━━━━━━━━");
-		for (int i = 0; i < rank.size(); i++) {
-			System.out.println(" "+ (i + 1) + "." + rank.get(i));
-			if (rank.size() ==5) break; 
+
+		if (file.exists()) {
+			System.out.println("순위       아이디             시간");
+			System.out.println("━━━━━━━━━━━━━━━━━━━");
+			for (int i = 0; i < rank.size(); i++) {
+				System.out.printf("%2s.%14s%16s",(i + 1), rank.get(i).getId(), rank.get(i).getRecordTime());
+				System.out.println();
+				if (i == 4) break; 
+			}
+			System.out.println("━━━━━━━━━━━━━━━━━━━");
 		}
-		System.out.println("━━━━━━━━━━━━━━━━━");
 	}
 	
 
@@ -93,6 +100,15 @@ public class PlayerRank {
 		//파일쓰기
 		ObjectOutputStream oos = null;
 		FileOutputStream fos = null;
+		
+		if (!file.exists()) {
+			try {
+				file.createNewFile();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		}
+		
 
 		try {
 			
@@ -101,10 +117,10 @@ public class PlayerRank {
 			
 			//RspInfo객체 저장
 			oos.writeObject(rank);
-			System.out.println("기록 저장.");
+			//System.out.println("기록 저장.");
 			
 		} catch (Exception e) {
-			System.out.println("기록 저장 실패.");
+			//System.out.println("기록 저장 실패.");
 			e.printStackTrace();
 			
 		} finally {
@@ -126,7 +142,7 @@ public class PlayerRank {
 		
 		if (rank.size() > 1) {
 			for (int i = rank.size() - 1; i > 0; i--) {
-				if (rank.get(i - 1).getRecordTime() < rank.get(i).getRecordTime()) {
+				if (rank.get(i - 1).getRecordTime() > rank.get(i).getRecordTime()) {
 					PlayerInfo temp = rank.get(i);
 					rank.set(i, rank.get(i - 1));
 					rank.set(i - 1, temp);
@@ -144,93 +160,16 @@ public class PlayerRank {
 		
 		int userCount =0;
 		
-		if (rank.size() < 5) {
-			userCount = rank.size();
+		if (rank.size() <= 5) {
+			return true;  
 		} else {
-			userCount = 5;
+			userCount = 4;
 		}
 		
 		if (recordTime < rank.get(userCount).getRecordTime()) {
 			return true;
 		} else {
-			return true;
-		}
-	}
-	
-
-	
-
-	/**
-	 * 파일 읽기 부분
-	 */
-	public void loadRank() {
-
-		FileInputStream fis = null;
-		try {
-			
-			
-			if (file.exists()) {
-				
-				fis = new FileInputStream(file);
-				ois = new ObjectInputStream(fis);
-				
-			}
-			
-			rank = (ArrayList<PlayerInfo>) ois.readObject();
-			
-			if (rank == null) rank = new ArrayList<PlayerInfo>();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			
-		} catch (IOException e) {			
-			e.printStackTrace();
-			
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-			
-		} finally {
-			try {
-				if (fis != null)
-					fis.close();
-				if (ois != null)
-					ois.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-
-	}
-	
-	
-	
-	/**
-	 * 순위정보 저장 리스트 자체를 저장함
-	 */
-	public void save() {
-		
-		FileOutputStream fos = null;
-		try {
-			
-			fos = new FileOutputStream(file);
-			oos = new ObjectOutputStream(fos);
-			oos.writeObject(rank);
-
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (fos != null)
-					fos.close();
-				if (oos != null)
-					oos.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			return false;
 		}
 	}
 	
@@ -239,40 +178,6 @@ public class PlayerRank {
 		return instance;
 	}
 	
-	public void writeFile() {
-		
-		String path = "rank.dat";
-		
-		File f = new File("path");
-		if (!f.exists()) f.mkdirs();
-		
-		//파일쓰기
-		ObjectOutputStream oos = null;
-		FileOutputStream fos = null;
-	
-		try {
-			
-			fos = new FileOutputStream(path);
-			oos = new ObjectOutputStream(fos);
-			
-			//RspInfo객체 저장
-			oos.writeObject(rank);
-			System.out.println("기록 저장.");
-			
-		} catch (Exception e) {
-			System.out.println("기록 저장 실패.");
-			e.printStackTrace();
-			
-		} finally {
-			
-			try {
-				if (oos != null ) oos.close();
-				if (fos != null ) fos.close();
-			} catch (IOException e) {
-				
-			}
-		}
 
-	}
 	
 }

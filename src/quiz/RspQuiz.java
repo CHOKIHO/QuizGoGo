@@ -48,11 +48,11 @@ public class RspQuiz implements Quiz {
 			
 			System.out.println(win + "승 " + draw + "무 " + lose + "패");
 
-			if (win == 3 || lose ==3) {
+			if (win == 1 || lose ==1) {
 				break;
 			}
 		}
-		if (win==3) {
+		if (win==1) {
 			return 1;
 		}else {
 			return 0;
@@ -63,7 +63,7 @@ public class RspQuiz implements Quiz {
 	public String[] story() {
 		String[] msg = {"당신은 무인도에 갇혔습니다.",
 				        "가위바위보 신과 대결을 시작합니다.",
-						"3번을 먼저 이겨야 미션을 클리어 할 수 있습니다."};
+						"먼저 이겨야 미션을 클리어 할 수 있습니다."};
 		return msg;
 		
 	}

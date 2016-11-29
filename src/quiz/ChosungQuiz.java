@@ -9,6 +9,10 @@ public class ChosungQuiz implements Quiz {
 
 	@Override
 	public int make() {
+		System.out.println();
+		System.out.println("----------------[초성 퀴즈]----------------");
+		System.out.println();
+		
 		String answer;
 		
 		Scanner sc = new Scanner(System.in);
