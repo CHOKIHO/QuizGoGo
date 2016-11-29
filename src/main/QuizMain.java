@@ -238,11 +238,13 @@ public class QuizMain {
 		
 		outer : while (true) {
 			Splash.clear();
-			System.out.println("연습모드");
-			System.out.println(" 1. 초성낱말퀴즈    2. 인디언포커        3. 행맨");
-			System.out.println(" 4. 가위바위보      5. 영단어빨리치기    6. 영단어맞추기");
-			System.out.println(" 7. 빙고            8. 암산게임          9. 나눠서 1 만들기");
-			System.out.println("10. 알파벳빨리치기 11.넌센스퀴즈        12. 가위바위보 하나빼기");
+			System.out.println();
+			System.out.println("-----------------------[연습 모드]---------------------------");
+			System.out.println();
+			System.out.println(" 1. 초성낱말퀴즈     2. 인디언포커        3. 행맨");
+			System.out.println(" 4. 가위바위보       5. 영단어빨리치기    6. 영단어맞추기");
+			System.out.println(" 7. 빙고             8. 암산게임          9. 나눠서 1 만들기");
+			System.out.println("10. 알파벳빨리치기  11.넌센스퀴즈        12. 가위바위보 하나빼기");
 			System.out.println(" 0. 연습모드 종료");
 			System.out.print(">> ");
 			
